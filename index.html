@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="./js/point2d.js"></script>
+    <script src="./js/animator.js"></script>
+    <script src="./js/background.js"></script>
+    <script src="./js/collider.js"></script>
+    <script src="./js/movement.js"></script>
+    <script src="./js/player.js"></script>
+    <script src="./objetos/tree.js"></script>
+    <script src="./objetos/rock.js"></script>
+    <script src="./objetos/objetoImage.js"></script>
+    <script src="./js/cenario.js"></script>
+    <script src="./js/spawner.js"></script>
+    <script src="./js/floor.js"></script>
+    <script src="./js/endlessRunnerGame.js"></script>
+
+    <style>
+        #canvas{
+            width: 80% !important;
+            /* height: 95vh;  */
+            padding: 0;
+            margin: 0;
+            background-image: url("./images/Ativo_16.png");
+            background-size: cover;
+        }
+        .hidden{
+            display: none;
+        }
+    </style>
+</head>
+
+
+<body>
+    <canvas id="canvas" width="1000" height="300"></canvas>
+    <!-- <button id="startButton" onclick="iniciarJogo()">START!</button> -->
+    <script>
+
+        //Chao
+        const floorImage = new Image();
+        const wallImage = new Image();
+        floorImage.src = "./images/floor2.png";
+        wallImage.src = "./images/wall.png";
+
+        //Cenario
+        const nuvem1Image = new Image();
+        const nuvem2Image = new Image();
+        const aviaoImage = new Image();
+        const casa1 = new Image();
+        // const casa2 = new Image();
+        const casa3 = new Image();
+        const casa4 = new Image();
+        const arvore1 = new Image();
+        const arvore2 = new Image();
+        nuvem1Image.src = "./images/nuvem1.png";
+        nuvem2Image.src = "./images/nuvem2.png";
+        aviaoImage.src = "./images/aviao2.png";
+        casa1.src = "./images/casa1.png";
+        // casa2.src = "./images/casa2.png";
+        casa3.src = "./images/casa3.png";
+        casa4.src = "./images/casa4.png";
+        arvore1.src = "./images/arvore1.png";
+        arvore2.src = "./images/arvore2.png";
+
+        //Obstaculos
+        const carroVerdeImage = new Image();
+        const carroVermelhoImage = new Image();
+        const panda1Image = new Image();
+        const panda2Image = new Image();
+        carroVerdeImage.src = "./images/carroVerde.png";
+        carroVermelhoImage.src = "./images/carroVermelho.png";
+        panda1Image.src = "./images/panda1.png";
+        panda2Image.src = "./images/panda2.png";
+        console.log(panda1Image)
+        // Define player parameters.
+        const playerOptions = {
+            width: 70,
+            height: 90,
+            startX: 150,
+            jumpPower: 15,
+            jumpHeight: 250,
+            gravity: 7,
+            playSpeed: 8,
+            showTime: 8,
+            imageSources: [
+                "./images/duck1.png",
+                "./images/duck2.png"
+            ]
+        }
+        
+        // Define spawner parameters.
+        const spawnerOptions = {
+            width: 1,
+            height: 1,
+            minLength: 250,
+            maxlength: 280,
+            speed: 8,
+            maxActive: 2,
+            obstacles: [
+                // x, y, w, h, Imagem
+                // Tree.create(-130, 0, 8, 32, 15),
+                // Rock.create(-170, 0, 28, 30, 1),
+                ObjetoImage.create(-170, 0, 60, 40, panda1Image),
+                ObjetoImage.create(-170, 0, 60, 40, panda2Image),
+                // ObjetoImage.create(-170, 0, 90, 40, carroVerdeImage),
+                // ObjetoImage.create(-170, 0, 90, 40, carroVermelhoImage)
+            ]
+        }
+        
+        const cenario = {
+            width: 30,
+            height: 50,
+            minLength: 230,
+            maxlength: 280,
+            speed: 4,
+            maxActive: 4,
+            obstacles: [
+                // x, y, w, h, Imagem, area(sky,ground)
+                ObjetoImage.create(-170, 0, 130, 150, casa1,"ground"),
+                // ObjetoImage.create(-170, 0, 130, 60, casa2,"ground"),
+                ObjetoImage.create(-170, 30, 130, 100, arvore1,"ground"),
+                ObjetoImage.create(-170, 30, 180, 120, arvore2,"ground"),
+                ObjetoImage.create(-170, 50, 150, 90, nuvem1Image,"sky"),
+                ObjetoImage.create(-170, 50, 150, 90, nuvem2Image,"sky"),
+                ObjetoImage.create(-170, 30, 170, 60, aviaoImage,"sky"),
+
+            ]
+        }
+
+        // Define difficulty.
+        const difficulty = {
+            speedIncreasement: .01,
+            maxIncreasement: 20
+        }
+
+        // Create an instance of the game.
+        const frameRate = 30;
+        const groundOffset = 20;
+        const endlessRunnerGame = new EndlessRunnerGame("canvas", frameRate, groundOffset, playerOptions, spawnerOptions, difficulty, cenario,floorImage,wallImage);
+        // Create an instance of the game.
+        endlessRunnerGame.start();
+
+        // function iniciarJogo(){            
+        //     var botao = document.getElementById("startButton");
+        //     botao.classList.add("hidden");
+        //     // Create an instance of the game.
+        //     endlessRunnerGame.start();
+        // }
+
+    </script>
+</body>
+
+</html>
